@@ -1,6 +1,6 @@
 # Mumi-multitask-module-identification
 
-This is the MATLAB source code and input data for the paper in preparation
+This is the MATLAB source code, experimental data and results for the paper in preparation
 
 Mumi: multitask module identification for biological networks.
 
