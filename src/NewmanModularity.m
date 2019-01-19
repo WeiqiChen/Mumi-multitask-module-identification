@@ -11,15 +11,20 @@
 
 function Q = NewmanModularity(x)
 global G;
+global modularity_matrix;
+global num_edges;
+
+n = length(x);
 delta = zeros(size(G));
-communities = unique(x);
-for i = 1:length(communities)
-    ind = find(x == communities(i));
-    delta(ind, ind) = 1;
+group = cell(1, max(x)+1);
+for i = 1:n
+    group{x(i)+1} = [group{x(i)+1}, i];
 end
-m = sum(G(:))/2;
-D = sum(G, 2);
-modularity_matrix = G - D * D' ./ (2 * m);
+group = group(~cellfun('isempty',group));
+for i = 1:length(group)
+    delta(group{i}, group{i}) = 1;
+end
+
 Q = sum(sum(modularity_matrix .* delta)) / (2 * m);
 Q = - Q;  % minimization
 end
