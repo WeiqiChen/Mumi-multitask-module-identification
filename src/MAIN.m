@@ -10,7 +10,8 @@ clc
 %% Load Data
 global G h_score;
 global num_module_max;
-
+global modularity_matrix;
+global num_edges;
 
 load('yeastData.mat');
 G = full(G);
@@ -39,6 +40,12 @@ n=size(G, 1);
 % h_score = 0.5 - rand(size(G, 1), 1);
 % num_module_max = 1;
 % n=size(G, 1);
+
+%% pre-calculate modularity matrix 
+m = sum(G(:))/2;
+D = sum(G, 2);
+modularity_matrix = G - D * D' ./ (2 * m);
+num_edges = sum(G(:))/2;
 
 %% Set Tasks
 Tasks(1).dims=n;
