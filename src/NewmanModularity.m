@@ -14,15 +14,13 @@ global G;
 global modularity_matrix;
 global num_edges;
 
-n = length(x);
 delta = zeros(size(G));
-group = cell(1, max(x)+1);
-for i = 1:n
-    group{x(i)+1} = [group{x(i)+1}, i];
-end
-group = group(~cellfun('isempty',group));
-for i = 1:length(group)
-    delta(group{i}, group{i}) = 1;
+edges =  -0.5:1:(max(x)+0.5);
+bins = discretize(x,edges);
+bin_count = unique(bins);
+for i = 1:length(bin_count)
+    ind = find(bins == bin_count(i));
+    delta(ind, ind) = 1;
 end
 
 Q = sum(sum(modularity_matrix .* delta)) / (2 * m);
