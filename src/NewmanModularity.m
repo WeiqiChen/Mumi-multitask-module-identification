@@ -23,6 +23,8 @@ for i = 1:length(bin_count)
     delta(ind, ind) = 1;
 end
 
-Q = sum(sum(modularity_matrix .* delta)) / (2 * m);
-Q = - Q;  % minimization
+temp = modularity_matrix .* sparse(delta);
+Q = sum(temp(:)) / (2 * num_edges);
+Q = -full(Q);
+
 end
