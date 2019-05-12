@@ -206,6 +206,11 @@ function data_MFEA = MFEA(Tasks,pop,gen,selection_process,rmp,p_il)
             end     
         end
         disp(['MFEA Generation = ', num2str(generation), ' best factorial costs = ', num2str(bestobj)]);
+        
+        if (generation > 100) && (EvBestFitness(2, generation) == EvBestFitness(2, generation - 30))
+            break
+        end
+    
     end 
     data_MFEA.wall_clock_time=toc;
     data_MFEA.EvBestFitness=EvBestFitness;
